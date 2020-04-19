@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <!--Favicon-->
+    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+    <link rel="icon" href="favicon/favicon.png" type="image/png">
+    <link rel="icon" sizes="32x32" href="favicon/favicon-32.png" type="image/png">
+    <link rel="icon" sizes="64x64" href="favicon/favicon-64.png" type="image/png">
+    <link rel="icon" sizes="96x96" href="favicon/favicon-96.png" type="image/png">
+    <link rel="icon" sizes="196x196" href="favicon/favicon-196.png" type="image/png">
+    <link rel="apple-touch-icon" sizes="152x152" href="favicon/apple-touch-icon.png">
+    <link rel="apple-touch-icon" sizes="60x60" href="favicon/apple-touch-icon-60x60.png">
+    <link rel="apple-touch-icon" sizes="76x76" href="favicon/apple-touch-icon-76x76.png">
+    <link rel="apple-touch-icon" sizes="114x114" href="favicon/apple-touch-icon-114x114.png">
+    <link rel="apple-touch-icon" sizes="120x120" href="favicon/apple-touch-icon-120x120.png">
+    <link rel="apple-touch-icon" sizes="144x144" href="favicon/apple-touch-icon-144x144.png">
+    <meta name="msapplication-TileImage" content="favicon-144.png">
+    <meta name="msapplication-TileColor" content="#FFFFFF">
+
+    <title>MrNetwork - Post Faiblesse des serveurs DNS</title>
+
+    <!-- Bootstrap Core CSS -->
+    <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Theme CSS -->
+    <link href="css/clean-blog.min.css" rel="stylesheet">
+
+    <!-- Custom Fonts -->
+    <link href="vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href='https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
+
+</head>
+
+<body>
+
+    <!-- Navigation -->
+    <nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+        <div class="container-fluid">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header page-scroll">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                    <span class="sr-only">Toggle navigation</span>
+                    Menu <i class="fa fa-bars"></i>
+                </button>
+            </div>
+
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="index.html">Home</a>
+                    </li>
+                    <li>
+                        <a href="Older Posts.html">Older Posts</a>
+                    </li>
+                    <li>
+                        <a href="about.html">About</a>
+                    </li>
+                    <li>
+                        <a href="contact.html">Contact</a>
+                    </li>
+                </ul>
+            </div>
+            <!-- /.navbar-collapse -->
+        </div>
+        <!-- /.container -->
+    </nav>
+
+    <!-- Page Header -->
+    <!-- Set your background image for this header on the line below. -->
+    <header class="intro-header" style="background-image: url('img/post.bg.png')">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                    <div class="post-heading">
+                        <h1>Faiblesse des serveurs DNS</h1>
+                        <h2 class="subheading">Le DNS est un maillon essentiel au monde Internet !</h2>
+                        <span class="meta">Posted by <a href="#">MrGray</a> Vendredi 24 février</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Post Content -->
+    <article>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                    <h3>Faiblesse des serveurs DNS par transfert de zone</h3>
+        
+                    <p>Le DNS est un maillon essentiel au monde Internet puisqu’il permet de retrouver les serveurs attachés à un site WEB ou à un service FTP par exemple. Ainsi, lorsqu’un utilisateur demande une connexion HTTP, sa requête passe obligatoirement par une multitude de serveur DNS chacun délivrant une information à chaque fois plus précise jusqu’à retrouver la source. C’est littéralement le principe de la toile d’araignée : on part d’un bout pour arriver à l’autre en passant par un nombre conséquent de nœuds. Le DNS, c’est à peu près cela.</p>
+        
+                    <h4>Pour commencer</h4>
+                    <p>BIND est l’implémentation la plus répandue du protocole DNS permettant d’assurer la résolution des noms de domaines Internet et la correspondance adresse IP et nom de domaine. De nombreuses vulnérabilités ont été publiées durant les dernières années affectant le code propre à l’application BIND. Ainsi, sur les serveurs vulnérables, ces failles sont susceptibles de provoquer un DOS (déni de service) du service DNS ou l’exécution de commandes arbitraires avec des privilèges autres que simple utilisateur, notamment grâce à l’exploitation d’un débordement de tampon.</p>
+
+                    <p>Néanmoins (et bien trop souvent d’ailleurs), on retrouve une faille rudimentaire sur les serveurs DNS qui accorde en lecture un florilège d’informations sensibles. Effectivement, les commandes de transfert afin de mettre à jour les serveurs DNS secondaires ne rencontrent pas toujours de restrictions selon les clients. En d’autres termes, chacun à la possibilité d’accéder à ces données sensibles qui sont retransmises. Il s’agit véritablement d’une mauvaise configuration des serveurs DNS. A cet effet, l’option permettant les appels récursifs est activée par défaut avec la version 8 de BIND. Par ailleurs, les administrateurs n’ont pas toujours le réflexe de modifier cette implémentation d’origine et dangereuse.</p>
+
+                    <p>Un des moyens de résoudre le problème en attendant les correctifs de sécurité est de désactiver les appels récursifs sur le serveur DNS. Or, dans certains cas, ce n’est évidemment pas toujours possible, et pour cause : un serveur DNS doit fournir des indications à ses sous domaines.
+                    Néanmoins, il faut ajouter que dans les cas ou la suppression de la récursivité n’est pas possible, un contrôle strict des domaines autorisés à utiliser un serveur DNS principal de façon récursive peut permettre de limiter les risques d’attaque insidieuse. Il faut alors utiliser l’option [allow-recursion]. Ainsi, il n’est nullement obligatoire de servir les requêtes de transfert de n’importe qui.</p>
+
+                    <p>Pour illustrer notre explication, nous allons justement examiner cette faiblesse au travers d’un exemple réel. Nous allons voir qu’un DNS mal configuré peut livrer trop d’informations et compromettre ainsi la confidentialité de certains fichiers (dans notre cas clients). Notre exemple se porte sur le portail spécialisé dans le jeu Formule FPS NoFrag.com (super site d’ailleurs !) A l’origine, je souhaitais louer les services de leur hébergement afin d’héberger un serveur Counter Strike ou Day Of Defeat. Avant cela, je voulais d’abord m’assurer du sérieux de leur administration et vérifier par moi-même l’intégrité de leurs produits. C’est peut être discutable comme initiative mais on n’achète pas toujours un produit tant que l’on a pas encore ouvert la boîte </p>
+    
+                    <h4>Exemple</h4>
+                    <p>&nbsp;Pour d&eacute;buter, effectuons un simple Whois pour informations de base sur le site suivant : www.whois.net | Mais qu&rsquo;est-ce donc au juste ?<br />
+                    &nbsp; &nbsp; &nbsp; &nbsp; Le Whois (de l&rsquo;anglais &laquo; qui est-ce ? &raquo;) permet d&rsquo;obtenir des informations l&eacute;gales et administratives des h&eacute;bergements ainsi que des sites selon.</p>
+
+                    <p>&nbsp; &nbsp; &nbsp; &nbsp; Note : En vert figure les commentaires. En bleu les requ&ecirc;tes du client.<br />
+                    &nbsp; &nbsp; &nbsp; &nbsp; [www.whois.net]<br />
+                    &nbsp; &nbsp; &nbsp; &nbsp; Whois de DodFrance</p>
+
+                    <p>&nbsp; &nbsp; &nbsp; &nbsp; domain: &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;dodfrance.com<br />
+                    &nbsp; &nbsp; &nbsp; &nbsp; owner-address: &nbsp; &nbsp; &nbsp; &nbsp;DoD France<br />
+                    &nbsp; &nbsp; &nbsp; &nbsp; owner-address: &nbsp; &nbsp; &nbsp; &nbsp;99 Chemin Vert<br />
+                    &nbsp; &nbsp; &nbsp; &nbsp; owner-address: &nbsp; &nbsp; &nbsp; &nbsp;59300<br />
+                    &nbsp; &nbsp; &nbsp; &nbsp; owner-address: &nbsp; &nbsp; &nbsp; &nbsp;Aulnoy<br />
+                    &nbsp; &nbsp; &nbsp; &nbsp; owner-address: &nbsp; &nbsp; &nbsp; &nbsp;France<br />
+                    &nbsp; &nbsp; &nbsp; &nbsp; admin-c: &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;DS479-GANDI<br />
+                    &nbsp; &nbsp; &nbsp; &nbsp; tech-c: &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;DS479-GANDI<br />
+                    &nbsp; &nbsp; &nbsp; &nbsp; bill-c: &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;DS479-GANDI<br />
+                    &nbsp; &nbsp; &nbsp; &nbsp; nserver: &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;NS.BELOGIC.NET 81.91.66.208 &lt;&lt;&lt; Serveur DNS<br />
+                    &nbsp; &nbsp; &nbsp; &nbsp; nserver: &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;NS.ST-AISE.COM 81.91.66.208 &lt;&lt;&lt; Serveur DNS<br />
+                    &nbsp; &nbsp; &nbsp; &nbsp; reg_created: &nbsp; &nbsp; &nbsp; &nbsp;2001-06-11 12:45:31<br />
+                    &nbsp; &nbsp; &nbsp; &nbsp; expires: &nbsp; &nbsp; &nbsp; &nbsp;2004-06-11 12:45:31<br />
+                    &nbsp; &nbsp; &nbsp; &nbsp; created: &nbsp; &nbsp; &nbsp; &nbsp;2001-06-11 18:45:31<br />
+                    &nbsp; &nbsp; &nbsp; &nbsp; changed: &nbsp; &nbsp; &nbsp; &nbsp;2003-05-24 21:54:21</p>
+
+                    <p>&nbsp; &nbsp; &nbsp; &nbsp; person: &nbsp; &nbsp; &nbsp; &nbsp;Dubois Samuel<br />
+                    &nbsp; &nbsp; &nbsp; &nbsp; nic-hdl: &nbsp; &nbsp; &nbsp; &nbsp;DS479-GANDI<br />
+                    &nbsp; &nbsp; &nbsp; &nbsp; address: &nbsp; &nbsp; &nbsp; &nbsp;99 Chemin Vert<br />
+                    &nbsp; &nbsp; &nbsp; &nbsp; address: &nbsp; &nbsp; &nbsp; &nbsp;59300<br />
+                    &nbsp; &nbsp; &nbsp; &nbsp; address: &nbsp; &nbsp; &nbsp; &nbsp;Aulnoy<br />
+                    &nbsp; &nbsp; &nbsp; &nbsp; address: &nbsp; &nbsp; &nbsp; &nbsp;France<br />
+                    &nbsp; &nbsp; &nbsp; &nbsp; phone: &nbsp; &nbsp; &nbsp; &nbsp;06 16 44 47 00<br />
+                    &nbsp; &nbsp; &nbsp; &nbsp; e-mail: &nbsp; &nbsp; &nbsp; &nbsp;alternativ_fr@hotmail.com</p>
+
+                    <p>&nbsp; &nbsp; &nbsp; &nbsp; Notre Whois nous donne deux adresses IP concernant les serveurs DNS du domaine Dodfrance.com, soit NS.BELOGIC.NET et NS.ST-AISE.COM (m&ecirc;me IP). Pour tenter une migration des donn&eacute;es relatives &agrave; ces DNS, nous utiliserons le programme nslookup (pr&eacute;sent sur les distributions Unix et 2000NT) et qui sert justement &agrave; cet effet. C&rsquo;est gr&acirc;ce &agrave; cette application que nous allons &eacute;tablir un contact client avec les serveurs DNS. Ajoutons bri&egrave;vement qu&rsquo;un serveur DNS utilise le protocole UDP (User Datagram Protocol) pour le passage des donn&eacute;es.</p>
+
+                    <p>&nbsp; &nbsp; &nbsp; &nbsp; Maintenant, passons aux choses s&eacute;rieuses en demandant &agrave; notre IP 81.91.66.208 la version de BIND. Jusqu&rsquo;&agrave; pr&eacute;sent rien ne nous garanti qu&rsquo;il se produira quelque chose de positif puisque normalement, nous devrions rencontrer une certaine restriction (si le serveur DNS est bien configur&eacute;). Et pourtant . . .<br />
+                    &nbsp; &nbsp; &nbsp; &nbsp; Version DNS (81.91.66.208) nonerd.net</p>
+
+                    <p>&nbsp; &nbsp; &nbsp; &nbsp; C:\&gt;nslookup<br />
+                    &nbsp; &nbsp; &nbsp; &nbsp; Serveur par d&eacute;faut : dnscache-1.proxad.net<br />
+                    &nbsp; &nbsp; &nbsp; &nbsp; address: 212.27.39.1 Mon serveur DNS (@free)</p>
+
+                    <p>&nbsp; &nbsp; &nbsp; &nbsp; &gt; server 81.91.66.208<br />
+                    &nbsp; &nbsp; &nbsp; &nbsp; Serveur par d&eacute;faut : nonerd.net<br />
+                    &nbsp; &nbsp; &nbsp; &nbsp; Address: 81.91.66.208<br />
+                    &nbsp; &nbsp; &nbsp; &nbsp; Aliases: 208.66.91.81.in-addr.arpa</p>
+
+                    <p>&nbsp; &nbsp; &nbsp; &nbsp; &gt; set class=chaos<br />
+                    &nbsp; &nbsp; &nbsp; &nbsp; &gt; set q=txt<br />
+                    &nbsp; &nbsp; &nbsp; &nbsp; &gt; version.bind<br />
+                    &nbsp; &nbsp; &nbsp; &nbsp; Serveur: nonerd.net<br />
+                    &nbsp; &nbsp; &nbsp; &nbsp; Address: 81.91.66.208<br />
+                    &nbsp; &nbsp; &nbsp; &nbsp; Aliases: 208.66.91.81.in-addr.arpa</p>
+
+                    <p>&nbsp; &nbsp; &nbsp; &nbsp; VERSION.BIND &nbsp; text =</p>
+
+                    <p>&nbsp; &nbsp; &nbsp; &nbsp; &quot;8.3.6-REL&quot; Voici la version!</p>
+
+                    <p>&nbsp; &nbsp; &nbsp; &nbsp; Nous voici donc avec une version 8.3.6 de BIND. Vous remarquerez que nous obtenons aussi un nom de domaine autre sous l&#39;&eacute;ponyme nonerd.net<br />
+                    &nbsp; &nbsp; &nbsp; &nbsp; C&#39;est maintenant que nous allons tenter (avec succ&egrave;s d&#39;ailleurs) un transfert de zone DNS toujours avec nslookup. Voyons le r&eacute;sultat.</p>
+
+                    <p>&nbsp; &nbsp; &nbsp; &nbsp; &gt; ls -d nonerd.net<br />
+                    &nbsp; &nbsp; &nbsp; &nbsp; [nonerd.net]<br />
+                    &nbsp; &nbsp; &nbsp; &nbsp; nonerd.net. &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;SOA &nbsp; &nbsp;nonerd.net root.nonerd.net. (3003103102 3600 900 604800 3600)<br />
+                    &nbsp; &nbsp; &nbsp; &nbsp; nonerd.net. &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;NS &nbsp; &nbsp; nonerd.net &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;<br />
+                    &nbsp; &nbsp; &nbsp; &nbsp; nonerd.net. &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;NS &nbsp; &nbsp; ns6.gandi.net &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;<br />
+                    &nbsp; &nbsp; &nbsp; &nbsp; nonerd.net. &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;A &nbsp; &nbsp; &nbsp;81.91.66.208<br />
+                    &nbsp; &nbsp; &nbsp; &nbsp; sql &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;A &nbsp; &nbsp; &nbsp;81.91.66.208<br />
+                    &nbsp; &nbsp; &nbsp; &nbsp; yooz &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; A &nbsp; &nbsp; &nbsp;81.91.66.208<br />
+                    &nbsp; &nbsp; &nbsp; &nbsp; *.yooz &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; CNAME &nbsp;yooz.nonerd.net<br />
+                    &nbsp; &nbsp; &nbsp; &nbsp; timoti &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; A &nbsp; &nbsp; &nbsp;81.91.66.208<br />
+                    &nbsp; &nbsp; &nbsp; &nbsp; *.timoti &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; CNAME &nbsp;timoti.nonerd.net<br />
+                    &nbsp; &nbsp; &nbsp; &nbsp; gallery &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;A &nbsp; &nbsp; &nbsp;81.91.66.208<br />
+                    &nbsp; &nbsp; &nbsp; &nbsp; *.gallery &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;CNAME &nbsp;gallery.nonerd.net<br />
+                    &nbsp; &nbsp; &nbsp; &nbsp; home &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; A &nbsp; &nbsp; &nbsp;62.4.20.82<br />
+                    &nbsp; &nbsp; &nbsp; &nbsp; comics &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; A &nbsp; &nbsp; &nbsp;62.4.20.82<br />
+                    &nbsp; &nbsp; &nbsp; &nbsp; mail &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; A &nbsp; &nbsp; &nbsp;81.91.66.208<br />
+                                        &nbsp; &nbsp; &nbsp; &nbsp; www &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;A &nbsp; &nbsp; &nbsp;81.91.66.208<br />
+                    &nbsp; &nbsp; &nbsp; &nbsp; arabd &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;A &nbsp; &nbsp; &nbsp;81.91.66.208<br />
+                    &nbsp; &nbsp; &nbsp; &nbsp; *.arabd &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;CNAME &nbsp;arabd.nonerd.net<br />
+                    &nbsp; &nbsp; &nbsp; &nbsp; ftp &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;A &nbsp; &nbsp; &nbsp;81.91.66.208<br />
+                    &nbsp; &nbsp; &nbsp; &nbsp; nonerd.net. &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;SOA &nbsp; &nbsp;nonerd.net root.nonerd.net. (3003103102 3600 900 604800 3600)</p>
+
+                    <p>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; Il y a certains aspects int&eacute;ressants &agrave; cette petite impression sur &eacute;cran, mais manifestement, les abr&eacute;viations ne nous semble pas coutumi&egrave;res. A cet effet, prenons le temps de donner une claire explications des diff&eacute;rentes abr&eacute;viations rencontr&eacute;es :</p>
+
+                    <p>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; SOA - [Start Of Authority] d&eacute;crit le DNS faisant r&eacute;f&eacute;rence ainsi que diff&eacute;rentes valeurs indiquant la dur&eacute;e de validit&eacute; des informations et l&rsquo;adresse @mail du responsable de la zone.</p>
+
+                    <p>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; NS - [Name Server] d&eacute;signe les serveurs de noms pour la zone interrog&eacute;e.</p>
+
+                    <p>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; A - [Address] fait correspondre un nom (ou service) &agrave; une adresse IP. Dans notre log, nous trouvons notamment un serveur FTP (pure ftpd, vuln&eacute;rable BOF), un service de messagerie, etc.</p>
+
+                    <p>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; CNAME - [Alias Name] Cette possibilit&eacute; est particuli&egrave;rement utilis&eacute;e pour l&rsquo;h&eacute;bergement mutualis&eacute; lorsque plusieurs sites WEB sont h&eacute;berg&eacute;s sur le m&ecirc;me serveur.</p>
+
+                    <p>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; D&rsquo;autres abr&eacute;viations existent mais ne sont pas inscrites dans notre log d&rsquo;exemple sur nonerd. N&eacute;anmoins, expliquons notamment MX qui correspond &agrave; un service de messagerie, PTR pour une correspondance entre une IP et une adresse, etc.</p>
+
+                    <p>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; Il est int&eacute;ressant de consid&eacute;rer la r&eacute;ponse via une requ&ecirc;te de transfert sur le DNS ns6.gandi.net (d&rsquo;ailleurs, la r&eacute;ponse correspond &agrave; une bonne configuration). Apr&egrave;s, nous demanderons la version BIND du DNS secondaire.</p>
+
+                    <p>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; Request query sur ns6.gandi.net</p>
+
+                    <p>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &gt; ls -d 80.67.173.196<br />
+                    &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; [ns6.gandi.net]<br />
+                    &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; *** Impossible de fournir la liste du domaine 80.67.173.196&yuml; : Query refused</p>
+
+                    <p>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; C :&gt;nslookup<br />
+                    &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; Serveur par d&eacute;faut : dnscache-1.proxad.net<br />
+                    &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; address : 212.27.39.1</p>
+
+                    <p>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &gt; server 80.67.173.196<br />
+                    &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; Serveur par d&eacute;faut : nonerd.net<br />
+                    &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; Address : 80.67.173.196</p>
+
+                    <p>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &gt; set class=chaos<br />
+                    &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &gt; set q=txt<br />
+                    &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &gt; version.bind<br />
+                    &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; Serveur : ns6.gandi.net<br />
+                    &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; Address : 80.67.173.196</p>
+
+                    <p>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; VERSION.BIND text =</p>
+
+                    <p>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &quot;8.3.1-REL-NOESW&quot;</p>
+
+
+                            
+                            <h4>Conclusion</h4>
+                            <p>En finalité, nous avons donc plusieurs sites à visités (CNAME soit les aliases) sur notre IP [81.91.66.208]. Nous sommes en présence de 3 sites valides en partage sur le même serveur selon expression ’mutualisé’ :</p>
+
+                            <p>1° http://gallery.nonerd.net [NoNerd Family Gallery]
+                            2° http://timoti.nonerd.net [Etrange site sur l’art contemporain]
+                            3° http://yooz.nonerd.net [Idem mais orienté Art plastique]</p>
+
+                            <p>Bien que le transfert de zone ne soit pas explicitement responsable des différentes faiblesses de ce domaine, il accorde néanmoins une certaine transparence et donne une image plus précise de la cible. Le plus intéressant aurait été de placer une restriction afin de garantir l’opacité des susdites informations sensibles. Présentement, il y a là un moyen très simple de discerner si un site ou un serveur héberge éventuellement un script PHP vulnérable, un service ayant une faiblesse particulière ou d’autres choses encore.</p>
+
+                            <p>Terminons cet examen en affirmant qu’après avoir été prévenu, l’administrateur consciencieux a prit les dispositions adéquats. Ainsi, les services de nonerd.net sont selon une attente légitime.</p>
+                             <p>Pour finir j'espère que ce petit tuto vous aura plus !!! sur ce à Bientôt :-)</p>
+                </div>
+            </div>
+        </div>
+    </article>
+
+    <hr>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                    <ul class="list-inline text-center">
+                        <li>
+                            <a href="https://twitter.com/MrDims_Network" target="_blank">
+                                <span class="fa-stack fa-lg">
+                                    <i class="fa fa-circle fa-stack-2x"></i>
+                                    <i class="fa fa-twitter fa-stack-1x fa-inverse"></i>
+                                </span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="https://www.facebook.com/MrDimsNetWork/" target="_blank">
+                                <span class="fa-stack fa-lg">
+                                    <i class="fa fa-circle fa-stack-2x"></i>
+                                    <i class="fa fa-facebook fa-stack-1x fa-inverse"></i>
+                                </span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="https://www.youtube.com/channel/UCEq0qLyxDSOlayrXUIRkZJg/" target="_blank">
+                                <span class="fa-stack fa-lg">
+                                    <i class="fa fa-circle fa-stack-2x"></i>
+                                    <i class="fa fa-youtube fa-stack-1x fa-inverse"></i>
+                                </span>
+                            </a>
+                        </li>
+                    </ul>
+                    <p class="copyright text-muted">Copyright &copy; MrNetWork</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+
+    <!-- jQuery -->
+    <script src="vendor/jquery/jquery.min.js"></script>
+
+    <!-- Bootstrap Core JavaScript -->
+    <script src="vendor/bootstrap/js/bootstrap.min.js"></script>
+
+    <!-- Contact Form JavaScript -->
+    <script src="js/jqBootstrapValidation.js"></script>
+    <script src="js/contact_me.js"></script>
+
+    <!-- Theme JavaScript -->
+    <script src="js/clean-blog.min.js"></script>
+
+</body>
+
+</html>

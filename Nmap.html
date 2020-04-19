@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <!--Favicon-->
+    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+    <link rel="icon" href="favicon/favicon.png" type="image/png">
+    <link rel="icon" sizes="32x32" href="favicon/favicon-32.png" type="image/png">
+    <link rel="icon" sizes="64x64" href="favicon/favicon-64.png" type="image/png">
+    <link rel="icon" sizes="96x96" href="favicon/favicon-96.png" type="image/png">
+    <link rel="icon" sizes="196x196" href="favicon/favicon-196.png" type="image/png">
+    <link rel="apple-touch-icon" sizes="152x152" href="favicon/apple-touch-icon.png">
+    <link rel="apple-touch-icon" sizes="60x60" href="favicon/apple-touch-icon-60x60.png">
+    <link rel="apple-touch-icon" sizes="76x76" href="favicon/apple-touch-icon-76x76.png">
+    <link rel="apple-touch-icon" sizes="114x114" href="favicon/apple-touch-icon-114x114.png">
+    <link rel="apple-touch-icon" sizes="120x120" href="favicon/apple-touch-icon-120x120.png">
+    <link rel="apple-touch-icon" sizes="144x144" href="favicon/apple-touch-icon-144x144.png">
+    <meta name="msapplication-TileImage" content="favicon-144.png">
+    <meta name="msapplication-TileColor" content="#FFFFFF">
+
+    <title>MrNetwork - Post Nmap</title>
+
+    <!-- Bootstrap Core CSS -->
+    <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Theme CSS -->
+    <link href="css/clean-blog.min.css" rel="stylesheet">
+
+    <!-- Custom Fonts -->
+    <link href="vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href='https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
+
+</head>
+
+<body>
+
+    <!-- Navigation -->
+    <nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+        <div class="container-fluid">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header page-scroll">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                    <span class="sr-only">Toggle navigation</span>
+                    Menu <i class="fa fa-bars"></i>
+                </button>
+            </div>
+
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="index.html">Home</a>
+                    </li>
+                    <li>
+                        <a href="Older Posts.html">Older Posts</a>
+                    </li>
+                    <li>
+                        <a href="about.html">About</a>
+                    </li>
+                    <li>
+                        <a href="contact.html">Contact</a>
+                    </li>
+                </ul>
+            </div>
+            <!-- /.navbar-collapse -->
+        </div>
+        <!-- /.container -->
+    </nav>
+
+    <!-- Page Header -->
+    <!-- Set your background image for this header on the line below. -->
+    <header class="intro-header" style="background-image: url('img/post-bg02.jpg')">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                    <div class="post-heading">
+                        <h1>Tutoriel sur NMAP</h1>
+                        <h2 class="subheading">Nmap est un logiciel gratuit, open-source pour scanner les ports.</h2>
+                        <span class="meta">Posted by <a href="#">MrGray</a> Vendredi 24 février</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Post Content -->
+    <article>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                            
+                            <h4>Pour commencer</h4>
+                            <p>Nmap est un logiciel gratuit, open-source pour scanner les ports. Il est disponible&nbsp;<br />
+                            pour UNIX et Windows. Il dispose d&#39;une interface graphique optionnelle, ZenNmap, et&nbsp;<br />
+                            prend en charge une grande vari&eacute;t&eacute; de types de balayage, chacune avec des avantages&nbsp;<br />
+                            et des inconv&eacute;nients. Ce tutoriel d&eacute;crit certains types d&#39;analyse faite par NMAP ainsi&nbsp;<br />
+                            qu&#39;expliquer leurs avantages et comment ils fonctionnent r&eacute;ellement. J&#39;offre &eacute;galement&nbsp;<br />
+                            des conseils sur les types de scan qui serait mieux de faire contre tels et tels types&nbsp;<br />
+                            d&#39;h&ocirc;te. Je suppose que vous avez install&eacute; Nmap (et que vous savez comment l&#39;installer.&nbsp;<br />
+                            Les instructions sont disponibles sur le site Web Nmap, https://nmap.org/), et que vous&nbsp;<br />
+                            avez les privil&egrave;ges requis pour ex&eacute;cuter les scans d&eacute;taill&eacute;s (de nombreux scans n&eacute;cessitent&nbsp;<br />
+                            des privil&egrave;ges root ou Administrateur).</p>
+
+                            <p>Je devrais &eacute;crire une sorte d&#39;avertissement que je ne suis pas responsable ect.. Mais bon,&nbsp;<br />
+                            je vous le dis. Je ne suis pas responsable de vos actes avec ce tutoriel.</p>
+
+
+
+                                    <h4 id="setting-up-our-page">Exemple</h4>
+                                    <p>1. Scan de base [-sT, -sS]<br />
+                            Les deux types d&#39;analyse de base les plus utilis&eacute;s dans Nmap sont &laquo; TCP connect scan &raquo; [ -sT ]&nbsp;<br />
+                            et le scan SYN (&eacute;galement connu sous le nom de &laquo; stealth scanning &raquo; ) [ - sS ] . Ces deux types&nbsp;<br />
+                            de scans sont expliqu&eacute;s en d&eacute;tail ci-dessous .</p>
+
+                            <p>1.1 TCP connect scan [-sT]<br />
+                            Ce scan permet un scan de base des ports , et il tentera de se connecter &agrave; chaque ports.&nbsp;<br />
+                            Une fois l&#39;analyse termin&eacute;e , les ports pour lesquels une connexion peut &ecirc;tre &eacute;tablie sont&nbsp;<br />
+                            r&eacute;pertori&eacute;s comme open, on dit que le reste est closed. Cette m&eacute;thode d&#39;analyse est tr&egrave;s efficace ,&nbsp;<br />
+                            et fournit une image claire des ports que vous pouvez et ne pouvez pas acc&eacute;der . Mais !&nbsp;<br />
+                            Parce qu&#39;il y a toujours un mais. C&#39;est tr&egrave;s facile de vous d&eacute;tecter. Si un syst&egrave;me de d&eacute;tection&nbsp;<br />
+                            d&#39;intrusion ou un pare-feu ou est en cours d&#39;ex&eacute;cution sur la machine de votre victime et que&nbsp;<br />
+                            vous tentez de se connecter &agrave; chaque port , le syst&egrave;me saura ce qui se passe et fermera tout ou avertira l&#39;administrateur.</p>
+
+                            <p>&nbsp;<br />
+                            1.2 SYN stealth scan [-sS]<br />
+                            Pour &eacute;tablir une connexion TCP &laquo; furtive &raquo;, l&#39;attaquant doit envoyer un paquet SYN &agrave; son destinataire ,&nbsp;<br />
+                            qui r&eacute;pondra alors avec un SYN lui aussi, et un ACK , pour affirmer qu&#39;il a bien recu notre SYN.&nbsp;<br />
+                            L&#39;attaquant envoie ensuite lui aussi un paquet ACK pour affirmer qu&#39;il a bien recu le paquet ACK de la victime.&nbsp;<br />
+                            Tout ce joue ici, si les paquets SYN / ACK ont &eacute;t&eacute; envoy&eacute; et recu des deux cot&eacute;. Alors le port est ouvert et&nbsp;<br />
+                            la connexion TCP peut &ecirc;tre &eacute;tablie.<br />
+                            C&#39;est beaucoup mieux qu&#39;envoyer des requ&ecirc;te TCP un peu partout au hasard.</p>
+
+                            <p>2. FIN, Null et &laquo; Xmas Tree Scans &raquo; [-sF, -sN, -sX]<br />
+                            Avec la multitude de pare-feu modernes qui recherche maintenant les scans SYN , ces trois types d&#39;analyse peuvent&nbsp;<br />
+                            &ecirc;tre utiles &agrave; divers degr&eacute;s. Chaque type de scan fait r&eacute;f&eacute;rence aux drapeaux d&eacute;finis dans l&#39;en-t&ecirc;te TCP. L&#39;id&eacute;e derri&egrave;re ces types&nbsp;<br />
+                            d&#39; analyses est qu&#39;un port ferm&eacute; doit r&eacute;pondre obligatoirement par un paquet RST, alors qu&#39;un port ouvert devrait juste laisser tomber&nbsp;<br />
+                            votre requ&ecirc;te ( il cherche plut&ocirc;t les paquets SYN ).</p>
+
+                            <p>&nbsp;<br />
+                            Le scan FIN envoie un paquet avec seulement le flag FIN, le scan Xmas Tree d&eacute;finit les flags FIN, URG et PUSH&nbsp;<br />
+                            (voir un bon livre TCP / IP pour plus de d&eacute;tails ) et le scan Null envoie un paquet sans aucun flag. Ces types de scan&nbsp;<br />
+                            travailleront contre tous les syst&egrave;mes o&ugrave; le protocole TCP / IP suit le code RFC 793. Microsoft Windows ne suit pas la RFC ,&nbsp;<br />
+                            il va ignorer ces paquets m&ecirc;me sur les ports ferm&eacute;s. En ex&eacute;cutant une requ&ecirc;te SYN avec l&#39;un de ces scans, il sera possible de d&eacute;tecter&nbsp;<br />
+                            si le syst&egrave;me est un Windows ou non. Si le paquet SYN montre des ports ouverts , et que les paquets FIN / NULL / XMAS non,&nbsp;<br />
+                            vous &ecirc;tes alors tr&egrave;s probablement sur un syst&egrave;me Windows.</p>
+
+                            <p><br />
+                            L&#39; exemple ci-dessous montre un scan SYN et un scan FIN, effectu&eacute; contre un<br />
+                            syst&egrave;me Linux. Les r&eacute;sultats sont pr&eacute;visibles, mais le scan FIN est moins<br />
+                            susceptibles de se pr&eacute;senter dans un syst&egrave;me de logs.</p>
+
+                            <p>1 [TToA]# nmap -sS 127.0.0.1&nbsp;<br />
+                            2&nbsp;<br />
+                            3 Starting Nmap&nbsp;<br />
+                            4.01 at 2006-07-06 17:23 BST 4 Interesting ports on TToA (127.0.0.1):&nbsp;<br />
+                            5 (The 1668 ports scanned but not shown below are in state:&nbsp;<br />
+                            6 closed)&nbsp;<br />
+                            7 PORT STATE SERVICE&nbsp;<br />
+                            8 21/tcp open ftp 6&nbsp;<br />
+                            9 22/tcp open ssh&nbsp;<br />
+                            10 631/tcp open ipp&nbsp;<br />
+                            11 6000/tcp open X11&nbsp;<br />
+                            12&nbsp;<br />
+                            13 Nmap finished: 1 IP address (1 host up) scanned in 0.207&nbsp;<br />
+                            14 seconds&nbsp;<br />
+                            15 [TToA]# nmap -sF 127.0.0.1&nbsp;<br />
+                            16&nbsp;<br />
+                            17 Starting Nmap 4.01 at 2006-07-06 17:23 BST&nbsp;<br />
+                            18 Interesting ports on TToA (127.0.0.1):&nbsp;<br />
+                            19 (The 1668 ports scanned but not shown below are in state:&nbsp;<br />
+                            20 closed)&nbsp;<br />
+                            21 PORT STATE SERVICE&nbsp;<br />
+                            22 21/tcp open|filtered ftp&nbsp;<br />
+                            23 22/tcp open|filtered ssh&nbsp;<br />
+                            24 631/tcp open|filtered ipp&nbsp;<br />
+                            25 6000/tcp open|filtered X11&nbsp;<br />
+                            26&nbsp;<br />
+                            27 Nmap finished: 1 IP address (1 host up) scanned in 1.284 28 seconds&nbsp;</p>
+
+                            <p>3. Scan PING [-sP]<br />
+                            Faite le ping sous Windows, c&#39;est pareil&hellip; Il ne d&eacute;tecte pas les ports,&nbsp;<br />
+                            seulement si la machine est en ligne ou non. Il me fait penser au code source de LOIC &nbsp;:) .</p>
+
+                            <p>4. Scan UDP [-sU]<br />
+                            Un probl&egrave;me majeur avec cette technique est que, quand un pare-feu bloque les connexions sortantes,&nbsp;<br />
+                            vous aurez un message d&#39;erreur mais le port vous appara&icirc;tra ouvert. Ce qui n&#39;est pas toujours le cas.&nbsp;<br />
+                            On appel cela des &laquo; false positives &raquo;. Un autre inconv&eacute;nient avec le scan UDP est la vitesse &agrave; laquelle il peut &ecirc;tre ex&eacute;cut&eacute;e.&nbsp;<br />
+                            La plupart des syst&egrave;mes d&#39;exploitation limitent le nombre de requ&ecirc;te qui peuvent &ecirc;tre g&eacute;n&eacute;r&eacute;s en un certain laps de temps,&nbsp;<br />
+                            ce qui ralentit de beaucoup la vitesse du scan. Nmap ajuste sa vitesse de scan en cons&eacute;quence pour &eacute;viter d&#39;inonder un r&eacute;seau avec des paquets inutiles.&nbsp;<br />
+                            Un point int&eacute;ressant &agrave; noter ici est que Microsoft ne limitent pas la fr&eacute;quence de g&eacute;n&eacute;ration d&#39;erreur de Port Inaccessible, et il est donc facile pour&nbsp;<br />
+                            num&eacute;riser 65.535 Ports UDP d&#39;une machine Windows en tr&egrave;s peu de temps ! Il est g&eacute;n&eacute;ralement pas utile pour la&nbsp;<br />
+                            plupart des types d&#39;attaque d&#39;utiliser le scan UDP, mais il peut r&eacute;v&eacute;ler informations sur les services ou les trojans&nbsp;<br />
+                            qui reposent sur ce protocole, par exemple, SNMP , NFS, le cheval de Troie et de nombreux autres services.</p>
+
+                            <p>5. Scan de Protocole IP [-sO]<br />
+                            La tentative des scans de protocole IP sert &agrave; d&eacute;terminer si les protocoles IP sont support&eacute;s sur la cible.&nbsp;<br />
+                            Nmap envoie un paquet IP brut sans en-t&ecirc;te de protocole additionnel, &agrave; chaque protocole sur la machine cible.&nbsp;<br />
+                            La r&eacute;ception d&#39;un message nous dit si le protocole n&#39;est pas en cours d&#39;utilisation, sinon le port est ouvert.&nbsp;<br />
+                            Je crois que seul Windows fera un rapport de tous les protocoles ouverts lors de la demande. Mais je ne suis pas certain.</p>
+
+                            <p>&nbsp;<br />
+                            6. Scan &laquo; Idle &raquo; [-sI]</p>
+
+                            <p>Le scan Idle est une technique tr&egrave;s avanc&eacute;e o&ugrave; aucun paquet ne sont<br />
+                            envoy&eacute;e &agrave; la cible. Un h&ocirc;te zombie (et le port) doivent &ecirc;tre sp&eacute;cifi&eacute;s pour ce type d&#39;analyse.&nbsp;<br />
+                            L&#39;h&ocirc;te zombie doit satisfaire certains crit&egrave;res essentiels pour le bon fonctionnement de cette analyse.&nbsp;<br />
+                            Ce type de balayage fonctionne en exploitant la s&eacute;quence &laquo; predictable IP fragmentation ID &raquo; sur l&#39;h&ocirc;te zombie&nbsp;<br />
+                            afin de d&eacute;terminer les ports ouverts ou non. L&#39;analyse v&eacute;rifie le IPID du zombie ,puis demande une connexion &agrave; la machine cible,&nbsp;<br />
+                            ce qui semble &agrave; &ecirc;tre une connexion 127.0.0.1 depuis la machine attaqu&eacute;. Si le port cible est ouvert, une session de SYN / ACK commence&nbsp;<br />
+                            et est envoy&eacute; &agrave; partir de la machine zombie. Gr&acirc;ce &agrave; cette technique, il est possible d&#39;analyser chaque port de la cible comme&nbsp;<br />
+                            si c&#39;&eacute;tait la machine cible (le zombie) qui faisait le scan. Bien s&ucirc;r, les tentatives de connexion seront probablement enregistr&eacute;es ,&nbsp;<br />
+                            de sorte que le syst&egrave;me et ses logs contiennent l&#39;adresse IP de l&#39;attaquant. En outre, certains IDS et pare-feu font des tentatives&nbsp;<br />
+                            pour d&eacute;tecter les paquets de ce genre sur le r&eacute;seau. Tant que l&#39;h&ocirc;te zombie et l&#39;attaquant sont tous les deux &quot; sur Internet&quot; ou sur&nbsp;<br />
+                            le m&ecirc;me r&eacute;seau, les techniques pour identifier les paquets ne fonctionneront pas. Le plus dur qui est &agrave; faire est de cr&eacute;er un zombie.</p>
+                            <h4> Conclusion</h4>
+                            <p>Pour finir j'espère que ce petit tuto vous aura plus !!! sur ce à Bientôt :-)</p>
+                </div>
+            </div>
+        </div>
+    </article>
+
+    <hr>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                    <ul class="list-inline text-center">
+                        <li>
+                            <a href="https://twitter.com/MrDims_Network" target="_blank">
+                                <span class="fa-stack fa-lg">
+                                    <i class="fa fa-circle fa-stack-2x"></i>
+                                    <i class="fa fa-twitter fa-stack-1x fa-inverse"></i>
+                                </span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="https://www.facebook.com/MrDimsNetWork/" target="_blank">
+                                <span class="fa-stack fa-lg">
+                                    <i class="fa fa-circle fa-stack-2x"></i>
+                                    <i class="fa fa-facebook fa-stack-1x fa-inverse"></i>
+                                </span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="https://www.youtube.com/channel/UCEq0qLyxDSOlayrXUIRkZJg/" target="_blank">
+                                <span class="fa-stack fa-lg">
+                                    <i class="fa fa-circle fa-stack-2x"></i>
+                                    <i class="fa fa-youtube fa-stack-1x fa-inverse"></i>
+                                </span>
+                            </a>
+                        </li>
+                    </ul>
+                    <p class="copyright text-muted">Copyright &copy; MrNetWork</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+
+    <!-- jQuery -->
+    <script src="vendor/jquery/jquery.min.js"></script>
+
+    <!-- Bootstrap Core JavaScript -->
+    <script src="vendor/bootstrap/js/bootstrap.min.js"></script>
+
+    <!-- Contact Form JavaScript -->
+    <script src="js/jqBootstrapValidation.js"></script>
+    <script src="js/contact_me.js"></script>
+
+    <!-- Theme JavaScript -->
+    <script src="js/clean-blog.min.js"></script>
+
+</body>
+
+</html>
